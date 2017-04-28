@@ -1,47 +1,24 @@
 class InvoiceCreatedTemplate < BaseTemplate
 
-  attr_reader :event, :subscriber
+  AutoInject['mappers.invoice_created_mapper']
 
-  def initialize(event, subscriber)
-    @event = event
-    @subscriber = subscriber
+  attr_reader :event, :subscriber, :mapper_value, :message
+
+  def initialize(mapper_value)
+    @mapper_value = mapper_value
   end
 
-  def name
-    "Invoice Created"
+  def call
+    @message = template()
   end
 
-  def subject
-    "Flick Invoice Payment About to Happen"
+  def template
+    erb = ERB.new(File.open("#{__dir__}/views/invoice_created_notification.html.erb").read, 0, '>')
+    erb.result binding
   end
 
-  def message
-    {
-      text: "Flick Invoice Payment",
-      subject: "Flick Invoice Payment",
-    }
-  end
 
-  def template_values
-    {
-      global_merge_vars: [
-        map_values
-      ]
-    }
-  end
-
-  def map_values
-    mappings.inject({}) {|vals, (val_name, val_constructor)| vals[val_name] = val_constructor[:from].(); vals}
-  end
-
-  def mappings
-    {
-      subject: { from: -> { subject } },
-      name: { from: -> { subscriber.name } },
-      amount: { from: -> { event.amount } },
-      invoice_date: {from: -> { event.invoice_date } }
-    }
-  end
+  private
 
   # general_variables:
   #   week_bill

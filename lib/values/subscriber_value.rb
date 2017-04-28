@@ -1,6 +1,6 @@
 require './lib/types'
 
-class SubscriberValue < Dry::Types::Struct
+class SubscriberValue < Dry::Struct
 
   attribute :name, Types::String
   attribute :email, Types::String

@@ -1,0 +1,11 @@
+<h1>Invoice Created</h1>
+
+<h2>To <%= mapper_value.name %> </h2>
+
+<p><%= "This is your first bill" if mapper_value.first_bill  %> </p>
+
+<% if mapper_value.total_kwh.to_i > 0 %>
+
+  <p>You used <%= mapper_value.total_kwh  %> </p>
+
+<% end %>

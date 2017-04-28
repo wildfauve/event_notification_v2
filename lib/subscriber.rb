@@ -3,6 +3,7 @@ class Subscriber
   include AutoInject["values.subscriber_value"]
 
   def find_by_party(event)
+    # either retrieve from cache or get from Customer
     subscriber_value.new(
                     name: sub[:name],
                     email: sub[:email],
@@ -15,7 +16,7 @@ class Subscriber
       name: "Harry Hamster",
       email: "harry@example.com",
       subjects: {
-        invoice: [:email]
+        invoice: [:email, :sms]
       }
     }
   end

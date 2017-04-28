@@ -5,6 +5,6 @@ source "http://rubygems.org"
 gem 'pry'
 gem 'dry-container'
 gem 'dry-auto_inject'
-gem 'dry-types'
+gem 'dry-struct'
 gem 'dry-validation'
 gem 'dry-monads'
